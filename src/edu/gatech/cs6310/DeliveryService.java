@@ -78,6 +78,7 @@ public class DeliveryService {
 
                 } else if (tokens[0].equals("display_orders")) {
                     System.out.println("store: " + tokens[1]);
+                    customer.displayOrders(tokens[1]);
 
                 } else if (tokens[0].equals("request_item")) {
                     System.out.println("store: " + tokens[1] + ", order: " + tokens[2] + ", item: " + tokens[3] + ", quantity: " + tokens[4] + ", unit_price: " + tokens[5]);

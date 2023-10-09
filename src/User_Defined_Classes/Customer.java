@@ -16,7 +16,7 @@ public class Customer {
     private int currentCredit;
 
     private static HashMap<String, Customer> customerHashMap = new HashMap<>();
-    private static HashMap<String, ArrayList<String>> storeOrderList = new HashMap<>();
+    public static HashMap<String, ArrayList<String>> storeOrderList = new HashMap<>();
 
     public String getCustomerAccount() {
         return customerAccount;
@@ -107,6 +107,17 @@ public class Customer {
             }
             storeOrderList.get(storeName).add(orderIdentifier);
             System.out.println("OK:change_completed");
+        }
+    }
+    public void displayOrders(String storeName) {
+        if (storeOrderList.containsKey(storeName)) {
+            ArrayList<String> ordersForStore = storeOrderList.get(storeName);
+            for (String order : ordersForStore) {
+                System.out.println("orderID:" + order);
+            }
+            System.out.println("OK:display_completed");
+        } else {
+            System.out.println("ERROR:store_identifier_does_not_exist");
         }
     }
 }
