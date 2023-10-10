@@ -9,6 +9,7 @@ public class DeliveryService {
     DronePilot pilot;
     Drone drone;
     Customer customer;
+    Order order = new Order();
     public void commandLoop() {
         Scanner commandLineInput = new Scanner(System.in);
         String wholeInputLine;
@@ -82,6 +83,7 @@ public class DeliveryService {
 
                 } else if (tokens[0].equals("request_item")) {
                     System.out.println("store: " + tokens[1] + ", order: " + tokens[2] + ", item: " + tokens[3] + ", quantity: " + tokens[4] + ", unit_price: " + tokens[5]);
+                    order.requestItem(tokens[1], tokens[2], tokens[3], Integer.parseInt(tokens[4]), Integer.parseInt(tokens[5]));
 
                 } else if (tokens[0].equals("purchase_order")) {
                     System.out.println("store: " + tokens[1] + ", order: " + tokens[2]);

@@ -11,7 +11,7 @@ public class Item {
     private int itemWeight;
     private String belongsToStore;
 
-    private static HashMap<String, ArrayList<Item>> storeCatalog = new HashMap<>();
+    public static HashMap<String, ArrayList<Item>> storeCatalog = new HashMap<>();
     public String getItemName() {
         return itemName;
     }

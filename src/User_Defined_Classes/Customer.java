@@ -15,8 +15,10 @@ public class Customer {
     private int customerRating;
     private int currentCredit;
 
-    private static HashMap<String, Customer> customerHashMap = new HashMap<>();
+    public static HashMap<String, Customer> customerHashMap = new HashMap<>();
     public static HashMap<String, ArrayList<String>> storeOrderList = new HashMap<>();
+    public static HashMap<String, String> customerIDAndCustomerOrder = new HashMap<>();
+    public static HashMap<String, String> droneIDAndCustomerOrder = new HashMap<>();
 
     public String getCustomerAccount() {
         return customerAccount;
@@ -35,6 +37,9 @@ public class Customer {
     }
     public int getCurrentCredit() {
         return currentCredit;
+    }
+    public void setCurrentCredit(int creditLeft) {
+        currentCredit -= creditLeft;
     }
 
     public Customer(String customerAccount, String firstName, String lastName, String phoneNumber, int customerRating, int currentCredit) {
@@ -106,6 +111,8 @@ public class Customer {
                 storeOrderList.put(storeName, new ArrayList<>());
             }
             storeOrderList.get(storeName).add(orderIdentifier);
+            customerIDAndCustomerOrder.put(customerAccount, orderIdentifier);
+            droneIDAndCustomerOrder.put(droneIdentifier, orderIdentifier);
             System.out.println("OK:change_completed");
         }
     }

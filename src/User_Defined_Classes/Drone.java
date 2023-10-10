@@ -33,6 +33,9 @@ public class Drone {
     public int getRemainingCapacity() {
         return remainingCapacity;
     }
+    public void setMaxCarryWeight(int addedWeight) {
+        maxCarryWeight -= addedWeight;
+    }
 
     public static HashMap<String, ArrayList<Drone>> storeDroneCatalog = new HashMap<>();
     private static HashMap<DronePilot, Drone> dronePilotToDroneMap = new HashMap<>();
