@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static User_Defined_Classes.Drone.storeDroneCatalog;
+import static User_Defined_Classes.Order.storeNametoOrderIDList;
 import static User_Defined_Classes.Store.storeHashMap;
 
 public class Customer {
@@ -119,8 +120,12 @@ public class Customer {
     public void displayOrders(String storeName) {
         if (storeOrderList.containsKey(storeName)) {
             ArrayList<String> ordersForStore = storeOrderList.get(storeName);
+            ArrayList<Order.ItemOrder> storeOrderList = storeNametoOrderIDList.get(storeName);
             for (String order : ordersForStore) {
-                System.out.println("orderID:" + order);
+                for (Order.ItemOrder itemOrder : storeOrderList) {
+                    System.out.println("orderID:" + order);
+                    System.out.println("item_name: " + itemOrder.getItemName() + ", total_quantity: " + itemOrder.getItemQuantity() + ",total_cost: " + itemOrder.getItemPrice() + ",total_weight: " + itemOrder.getItemWeight());
+                }
             }
             System.out.println("OK:display_completed");
         } else {

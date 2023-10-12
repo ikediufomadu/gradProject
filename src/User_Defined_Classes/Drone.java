@@ -10,10 +10,10 @@ import static User_Defined_Classes.DronePilot.dronePilotHashMap;
 public class Drone {
     private String droneID;
     private int maxCarryWeight;
+    private int currentCarryWeight;
     private int tripsBeforeService;
     private String belongsToWhichStore;
     private int numOfOrdersDone;
-    private int remainingCapacity;
 
     public String getDroneID() {
         return droneID;
@@ -30,11 +30,11 @@ public class Drone {
     public int getNumOfOrdersDone() {
         return numOfOrdersDone;
     }
-    public int getRemainingCapacity() {
-        return remainingCapacity;
+    public int getCurrentCapacity() {
+        return currentCarryWeight;
     }
-    public void setMaxCarryWeight(int addedWeight) {
-        maxCarryWeight -= addedWeight;
+    public void lowerCurrentCapacity(int addedWeight) {
+        currentCarryWeight -= addedWeight;
     }
 
     public static HashMap<String, ArrayList<Drone>> storeDroneCatalog = new HashMap<>();
@@ -45,7 +45,7 @@ public class Drone {
         this.maxCarryWeight = maxCarryWeight;
         this.tripsBeforeService = tripsBeforeService;
         this.numOfOrdersDone = 0;
-        this.remainingCapacity = maxCarryWeight;
+        this.currentCarryWeight = maxCarryWeight;
     }
 
     public void addDrone(Drone drone) {
@@ -74,9 +74,9 @@ public class Drone {
             ArrayList<Drone> storeDrones = storeDroneCatalog.get(storeNameToSearch);
             for (Drone drone : storeDrones) {
                 if (dronePilotToDroneMap.containsValue(drone)) {
-                    System.out.println("droneID:" + drone.getDroneID() + ",total_cap:" + drone.getMaxCarryWeight() + ",num_orders:" + drone.getNumOfOrdersDone() + ",remaining_cap:" + drone.getRemainingCapacity() + ",trips_left:" + drone.getTripsBeforeService() + ",flown_by:" + getDronePilot(drone));
+                    System.out.println("droneID:" + drone.getDroneID() + ",total_cap:" + drone.getMaxCarryWeight() + ",num_orders:" + drone.getNumOfOrdersDone() + ",remaining_cap:" + drone.getCurrentCapacity() + ",trips_left:" + drone.getTripsBeforeService() + ",flown_by:" + getDronePilot(drone));
                 } else {
-                    System.out.println("droneID:" + drone.getDroneID() + ",total_cap:" + drone.getMaxCarryWeight() + ",num_orders:" + drone.getNumOfOrdersDone() + ",remaining_cap:" + drone.getRemainingCapacity() + ",trips_left:" + drone.getTripsBeforeService());
+                    System.out.println("droneID:" + drone.getDroneID() + ",total_cap:" + drone.getMaxCarryWeight() + ",num_orders:" + drone.getNumOfOrdersDone() + ",remaining_cap:" + drone.getCurrentCapacity() + ",trips_left:" + drone.getTripsBeforeService());
                 }
             }
             System.out.println("OK:display_completed");

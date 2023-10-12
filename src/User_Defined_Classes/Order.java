@@ -11,12 +11,34 @@ import static User_Defined_Classes.Store.storeHashMap;
 
 
 public class Order {
+    public class ItemOrder {
+        private String itemName;
+        private int itemQuantity;
+        private int itemPrice;
+        private int itemWeight;
+
+        public String getItemName() {
+            return itemName;
+        }
+        public int getItemQuantity() {
+            return itemQuantity;
+        }
+        public int getItemPrice() {
+            return itemPrice;
+        }
+        public int getItemWeight() {
+            return itemWeight;
+        }
+
+        public ItemOrder(String itemName, int itemQuantity, int itemPrice, int itemWeight) {
+            this.itemName = itemName;
+            this.itemQuantity = itemQuantity;
+            this.itemPrice = itemPrice;
+            this.itemWeight = itemWeight * itemQuantity;
+        }
+    }
     public static HashMap<String, ArrayList<String>> orderIDtoItemsList = new HashMap<>();
-
-//    public Order()
-
-//    public int calculateWeight(){}
-//    public boolean addOrderLine(int orderWeight, int maxCarryWeight) {}
+    public static HashMap<String, ArrayList<ItemOrder>> storeNametoOrderIDList = new HashMap<>();
     public void requestItem(String storeName, String orderIdentifier, String itemName, int itemQuantity, int itemPrice) {
         ArrayList<String> storeArrayList = storeOrderList.get(storeName);
         ArrayList<Item> storeItemList = storeCatalog.get(storeName);
@@ -27,6 +49,7 @@ public class Order {
         boolean canDroneCarry = true;
         Customer customer = null;
         Drone mainDrone = null;
+        Item item = null;
         if  (storeArrayList != null) {
             for (String storeOrderID : storeArrayList) {
                 if (storeOrderID.equals(orderIdentifier)) {
@@ -36,8 +59,9 @@ public class Order {
             }
         }
         if (storeItemList != null) {
-            for (Item item : storeItemList) {
-                if (item.getItemName().equals(itemName)) {
+            for (Item tempItem : storeItemList) {
+                if (tempItem.getItemName().equals(itemName)) {
+                    item = tempItem;
                     itemExists = true;
                     break;
                 }
@@ -53,7 +77,7 @@ public class Order {
         if (storeDrone != null) {
             for (Drone drone : storeDrone) {
                 if (droneIDAndCustomerOrder.containsKey(drone.getDroneID())) {
-                    if (drone.getRemainingCapacity() < itemQuantity) {
+                    if (drone.getCurrentCapacity() < itemQuantity || drone.getCurrentCapacity() < 0) {
                         canDroneCarry = false;
                     }
                     mainDrone = drone;
@@ -76,12 +100,16 @@ public class Order {
         } else {
             if (!orderIDtoItemsList.containsKey(orderIdentifier)) {
                 orderIDtoItemsList.put(orderIdentifier, new ArrayList<>());
-            } else {
-                orderIDtoItemsList.get(orderIdentifier).add(itemName);
-                mainDrone.setMaxCarryWeight(itemQuantity);
-                customer.setCurrentCredit(itemPrice);
             }
+            if (!storeNametoOrderIDList.containsKey(storeName)) {
+                storeNametoOrderIDList.put(storeName, new ArrayList<>());
+            }
+
+            mainDrone.lowerCurrentCapacity(itemQuantity * item.getItemWeight());
+            customer.setCurrentCredit(itemPrice * itemQuantity);
+            orderIDtoItemsList.get(orderIdentifier).add(itemName);
+            storeNametoOrderIDList.get(storeName).add(new ItemOrder(itemName, itemQuantity, itemPrice, item.getItemWeight()));
+            System.out.println("OK:change_completed");
         }
     }
-
 }
