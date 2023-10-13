@@ -37,6 +37,9 @@ public class DronePilot {
     public int getNumberOfDeliveries() {
         return numberOfDeliveries;
     }
+    public void addNumberOfDeliveries() {
+        numberOfDeliveries++;
+    }
     public DronePilot(String pilotAccount, String firstName, String lastName, String phoneNumber, String taxID, String licenseID, int numberOfDeliveries) {
         this.pilotAccount = pilotAccount;
         this.firstName = firstName;

@@ -14,6 +14,9 @@ public class Store {
     public int getStoreRevenue() {
         return storeRevenue;
     }
+    public void addRevenue(int credits) {
+        storeRevenue += credits;
+    }
     public Store(String storeName, int storeRevenue) {
         this.storeName = storeName;
         this.storeRevenue = storeRevenue;

@@ -29,8 +29,6 @@ public class DeliveryService {
                     store.addToDatabase(store.getStoreName(), store);
 
                 } else if (tokens[0].equals("display_stores")) {
-                    //TODO check if I can delete this sout statement
-//                    System.out.println("no parameters needed");
                     store.displayStores();
                 } else if (tokens[0].equals("sell_item")) {
                     System.out.println("store: " + tokens[1] + ", item: " + tokens[2] + ", weight: " + tokens[3]);
@@ -47,8 +45,6 @@ public class DeliveryService {
                     pilot.addPilot(pilot);
 
                 } else if (tokens[0].equals("display_pilots")) {
-                    //TODO check if I can delete this sout statement
-//                    System.out.println("no parameters needed");
                     pilot.displayPilots();
                 } else if (tokens[0].equals("make_drone")) {
                     System.out.println("store: " + tokens[1] + ", drone: " + tokens[2] + ", capacity: " + tokens[3] + ", fuel: " + tokens[4]);
@@ -70,8 +66,6 @@ public class DeliveryService {
                     customer.addCustomer(customer);
 
                 } else if (tokens[0].equals("display_customers")) {
-                    //TODO check if I can delete this sout statement
-//                    System.out.println("no parameters needed");
                     customer.displayCustomers();
                 } else if (tokens[0].equals("start_order")) {
                     System.out.println("store: " + tokens[1] + ", order: " + tokens[2] + ", drone: " + tokens[3] + ", customer: " + tokens[4]);
@@ -87,12 +81,15 @@ public class DeliveryService {
 
                 } else if (tokens[0].equals("purchase_order")) {
                     System.out.println("store: " + tokens[1] + ", order: " + tokens[2]);
+                    order.purchaseOrder(tokens[1], tokens[2]);
 
                 } else if (tokens[0].equals("cancel_order")) {
                     System.out.println("store: " + tokens[1] + ", order: " + tokens[2]);
+                    order.cancelOrder(tokens[1], tokens[2]);
 
                 } else if (tokens[0].equals("transfer_order")) {
                     System.out.println("store: " + tokens[1] + ", order: " + tokens[2] + ", new_drone: " + tokens[3]);
+                    order.transferOrder(tokens[1], tokens[2], tokens[3]);
 
                 } else if (tokens[0].equals("display_efficiency")) {
                     System.out.println("no parameters needed");

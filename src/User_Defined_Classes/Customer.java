@@ -14,6 +14,7 @@ public class Customer {
     private String lastName;
     private String phoneNumber;
     private int customerRating;
+    private int customerCredit;
     private int currentCredit;
 
     public static HashMap<String, Customer> customerHashMap = new HashMap<>();
@@ -42,14 +43,18 @@ public class Customer {
     public void setCurrentCredit(int creditLeft) {
         currentCredit -= creditLeft;
     }
+    public void updateCreditBalance() {
+        customerCredit -= getCurrentCredit();
+    }
 
-    public Customer(String customerAccount, String firstName, String lastName, String phoneNumber, int customerRating, int currentCredit) {
+    public Customer(String customerAccount, String firstName, String lastName, String phoneNumber, int customerRating, int customerCredit) {
         this.customerAccount = customerAccount;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.customerRating = customerRating;
-        this.currentCredit = currentCredit;
+        this.customerCredit = customerCredit;
+        this.currentCredit = customerCredit;
     }
 
     public void addCustomer(Customer customer) {

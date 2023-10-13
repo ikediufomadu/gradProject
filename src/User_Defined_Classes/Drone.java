@@ -14,6 +14,7 @@ public class Drone {
     private int tripsBeforeService;
     private String belongsToWhichStore;
     private int numOfOrdersDone;
+    private boolean hasPilot;
 
     public String getDroneID() {
         return droneID;
@@ -33,12 +34,21 @@ public class Drone {
     public int getCurrentCapacity() {
         return currentCarryWeight;
     }
+    public boolean getHashPilot() {
+        return hasPilot;
+    }
     public void lowerCurrentCapacity(int addedWeight) {
         currentCarryWeight -= addedWeight;
     }
+    public void lowerTripsBeforeService() {
+        tripsBeforeService--;
+    }
+    public void setHasPilot(boolean hasPilot) {
+        this.hasPilot = hasPilot;
+    }
 
     public static HashMap<String, ArrayList<Drone>> storeDroneCatalog = new HashMap<>();
-    private static HashMap<DronePilot, Drone> dronePilotToDroneMap = new HashMap<>();
+    public static HashMap<DronePilot, Drone> dronePilotToDroneMap = new HashMap<>();
     public Drone(String belongsToWhichStore, String droneID, int maxCarryWeight, int tripsBeforeService) {
         this.belongsToWhichStore = belongsToWhichStore;
         this.droneID = droneID;
@@ -114,6 +124,7 @@ public class Drone {
                 System.out.println("ERROR:pilot_identifier_does_not_exist");
             } else {
                 dronePilotToDroneMap.put(dronePilotHashMap.get(pilotAccount), droneToMap);
+                droneToMap.setHasPilot(true);
                 System.out.println("OK:change_completed");
             }
         }
