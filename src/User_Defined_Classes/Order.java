@@ -97,7 +97,7 @@ public class Order {
                 }
             }
         }
-        
+
         if (!storeHashMap.containsKey(storeName)) {
             System.out.println("ERROR:store_identifier_does_not_exist");
         } else if (!storeOrderIdentifier) {
@@ -255,13 +255,14 @@ public class Order {
     public void transferOrder(String storeName, String orderID, String newDroneID) {
         ArrayList<Drone> storeDrone = storeDroneCatalog.get(storeName);
         ArrayList<String> storeArrayList = storeOrderList.get(storeName);
-        ArrayList<>
-
+        ArrayList<Order.ItemOrder> storeOrderList = storeNametoOrderIDList.get(storeName);
+        int orderWeight = 0;
         boolean storeOrderIdentifier = false;
         boolean droneExists = false;
 
         Drone mainDrone = null;
         Drone droneToTransfer = null;
+        Order.ItemOrder mainItemOrder = null;
         if  (storeArrayList != null) {
             for (String storeOrderID : storeArrayList) {
                 if (storeOrderID.equals(orderID)) {
@@ -275,24 +276,36 @@ public class Order {
                 if (droneIDAndCustomerOrder.containsKey(drone.getDroneID())) {
                     mainDrone = drone;
                     droneExists = true;
-                    break;
                 }
                 if (drone.getDroneID().equals(newDroneID)) {
                     droneToTransfer = drone;
                 }
             }
         }
+        if (storeOrderList != null) {
+                for (Order.ItemOrder itemOrder : storeOrderList) {
+                    if (itemOrder.getItemID().equals(orderID)) {
+                        mainItemOrder = itemOrder;
+                        break;
+                    }
+                }
+        }
+        if (mainItemOrder != null) {
+            orderWeight = mainItemOrder.getItemWeight();
+        }
 
         if (!storeHashMap.containsKey(storeName)) {
             System.out.println("ERROR:store_identifier_does_not_exist");
-        } else if (!storeOrderIdentifier) {
+        } else if (!storeOrderIdentifier || mainItemOrder == null) {
             System.out.println("ERROR:order_identifier_does_not_exist");
-        } else if (!droneExists) {
+        } else if (!droneExists || droneToTransfer == null) {
             System.out.println("ERROR:drone_identifier_does_not_exist");
-        } else if (droneToTransfer.getCurrentCapacity() < ) {
+        } else if (droneToTransfer.getCurrentCapacity() < orderWeight) {
             System.out.println("ERROR:new_drone_does_not_have_enough_capacity");
         } else {
-            System.out.println("OK:new_drone_is_current_drone_no_change");
+            mainDrone.returnCapacitySpace(orderWeight);
+            droneToTransfer.lowerCurrentCapacity(orderWeight);
+            System.out.println("OK:change_completed");
         }
     }
 }

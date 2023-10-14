@@ -43,6 +43,9 @@ public class Drone {
     public void lowerTripsBeforeService() {
         tripsBeforeService--;
     }
+    public void returnCapacitySpace(int transferredWeight) {
+        currentCarryWeight += transferredWeight;
+    }
     public void setHasPilot(boolean hasPilot) {
         this.hasPilot = hasPilot;
     }
