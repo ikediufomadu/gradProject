@@ -15,6 +15,27 @@ public class Drone {
     private String belongsToWhichStore;
     private int numOfOrdersDone;
     private boolean hasPilot;
+    private int ordersCarrying;
+    private int ordersDelivered;
+
+    public int getOrdersCarrying() {
+        return ordersCarrying;
+    }
+    public int getOrdersDelivered() {
+        return ordersDelivered;
+    }
+    public void addNumOrdersDone() {
+        numOfOrdersDone++;
+    }
+    public void addToOrdersDelivered() {
+        ordersDelivered++;
+    }
+    public void addToOrdersCarrying() {
+        ordersCarrying++;
+    }
+    public void removeFromOrdersCarrying() {
+        ordersCarrying--;
+    }
 
     public String getDroneID() {
         return droneID;

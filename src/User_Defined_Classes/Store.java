@@ -7,7 +7,14 @@ public class Store {
     private String storeName;
     private int storeRevenue;
     private int numberOfPurchases = 0;
-    static HashMap<String, Store> storeHashMap = new HashMap<>();
+    private int numberOfTransfers = 0;
+    public void increaseNumberOfTransfers() {
+        numberOfTransfers++;
+    }
+    public int getNumberOfTransfers() {
+        return numberOfTransfers;
+    }
+    public static HashMap<String, Store> storeHashMap = new HashMap<>();
 
     public String getStoreName() {
         return storeName;
