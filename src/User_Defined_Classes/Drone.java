@@ -34,7 +34,7 @@ public class Drone {
     public int getCurrentCapacity() {
         return currentCarryWeight;
     }
-    public boolean getHashPilot() {
+    public boolean getHasPilot() {
         return hasPilot;
     }
     public void lowerCurrentCapacity(int addedWeight) {
@@ -118,6 +118,10 @@ public class Drone {
             for (DronePilot dronePilot : dronePilotArrayList) {
                 if (dronePilot.getPilotAccount().equals(pilotAccount)) {
                     pilotExists = true;
+                    if (isPilotAssociatedWithDrone(dronePilot)) {
+                        System.out.println("ERROR:pilot_already_associated_with_a_drone");
+                        return;
+                    }
                     break;
                 }
             }
@@ -132,7 +136,14 @@ public class Drone {
             }
         }
     }
-
+    private boolean isPilotAssociatedWithDrone(DronePilot pilot) {
+        for (Drone drone : dronePilotToDroneMap.values()) {
+            if (dronePilotToDroneMap.get(pilot) == drone) {
+                return true;
+            }
+        }
+        return false;
+    }
     private String getDronePilot(Drone drone) {
         for (Map.Entry<DronePilot, Drone> entry : dronePilotToDroneMap.entrySet()) {
             if (entry.getValue().equals(drone)) {

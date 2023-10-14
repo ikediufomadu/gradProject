@@ -92,7 +92,7 @@ public class DeliveryService {
                     order.transferOrder(tokens[1], tokens[2], tokens[3]);
 
                 } else if (tokens[0].equals("display_efficiency")) {
-                    System.out.println("no parameters needed");
+                    order.displayEfficiency();
 
                 } else if (tokens[0].equals("stop")) {
                     System.out.println("stop acknowledged");

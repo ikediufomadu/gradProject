@@ -6,6 +6,7 @@ import java.util.Map;
 public class Store {
     private String storeName;
     private int storeRevenue;
+    private int numberOfPurchases = 0;
     static HashMap<String, Store> storeHashMap = new HashMap<>();
 
     public String getStoreName() {
@@ -14,6 +15,14 @@ public class Store {
     public int getStoreRevenue() {
         return storeRevenue;
     }
+    public void increaseNumberOfPurchases() {
+        numberOfPurchases++;
+    }
+
+    public int getNumberOfPurchases() {
+        return numberOfPurchases;
+    }
+
     public void addRevenue(int credits) {
         storeRevenue += credits;
     }
