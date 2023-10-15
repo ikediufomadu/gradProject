@@ -2,6 +2,7 @@ package User_Defined_Classes;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class Store {
     private String storeName;
@@ -14,8 +15,6 @@ public class Store {
     public int getNumberOfTransfers() {
         return numberOfTransfers;
     }
-    public static HashMap<String, Store> storeHashMap = new HashMap<>();
-
     public String getStoreName() {
         return storeName;
     }
@@ -25,14 +24,14 @@ public class Store {
     public void increaseNumberOfPurchases() {
         numberOfPurchases++;
     }
-
     public int getNumberOfPurchases() {
         return numberOfPurchases;
     }
-
     public void addRevenue(int credits) {
         storeRevenue += credits;
     }
+
+    public static HashMap<String, Store> storeHashMap = new HashMap<>();
     public Store(String storeName, int storeRevenue) {
         this.storeName = storeName;
         this.storeRevenue = storeRevenue;
@@ -49,12 +48,15 @@ public class Store {
     }
 
     public void displayStores() {
-        for (Map.Entry<String, Store> entry: storeHashMap.entrySet()) {
+        TreeMap<String, Store> sortedStores = new TreeMap<>(storeHashMap);
+
+        for (Map.Entry<String, Store> entry : sortedStores.entrySet()) {
             Store store = entry.getValue();
             String storeName = store.getStoreName();
             int storeRevenue = store.getStoreRevenue();
             System.out.println("name:" + storeName + ", revenue:" + storeRevenue);
         }
+
         System.out.println("OK:display_completed");
     }
 }

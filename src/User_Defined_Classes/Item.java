@@ -1,8 +1,6 @@
 package User_Defined_Classes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 import static User_Defined_Classes.Store.storeHashMap;
 
@@ -64,7 +62,15 @@ public class Item {
     public void displayItems(String storeNameToSearch) {
         if (storeCatalog.containsKey(storeNameToSearch)) {
             ArrayList<Item> storeItems = storeCatalog.get(storeNameToSearch);
+
+            // Create a TreeMap to sort items by their names
+            TreeMap<String, Item> sortedItems = new TreeMap<>();
             for (Item item : storeItems) {
+                sortedItems.put(item.getItemName(), item);
+            }
+
+            for (Map.Entry<String, Item> entry : sortedItems.entrySet()) {
+                Item item = entry.getValue();
                 System.out.println(item.getItemName() + "," + item.getItemWeight());
             }
             System.out.println("OK:display_completed");
@@ -72,4 +78,5 @@ public class Item {
             System.out.println("ERROR:store_identifier_does_not_exist");
         }
     }
+
 }

@@ -285,24 +285,17 @@ public class Order {
                     oldDroneExists = true;
                 }
                 if (drone.getDroneID().equals(newDroneID)) {
-                    assert oldDrone != null;
-                    if (drone.getDroneID().equals(oldDrone.getDroneID())) {
-                        System.out.println("ERROR:new_drone_cannot_be_the_same_as_current_drone");
-                        break;
-                    }
-                }
-                if (drone.getDroneID().equals(newDroneID)) {
                     newDrone = drone;
                 }
             }
         }
         if (storeOrderList != null) {
-                for (Order.ItemOrder itemOrder : storeOrderList) {
-                    if (itemOrder.getItemID().equals(orderID)) {
-                        mainItemOrder = itemOrder;
-                        break;
-                    }
+            for (Order.ItemOrder itemOrder : storeOrderList) {
+                if (itemOrder.getItemID().equals(orderID)) {
+                    mainItemOrder = itemOrder;
+                    break;
                 }
+            }
         }
         if (mainItemOrder != null) {
             orderWeight = mainItemOrder.getItemWeight();
@@ -310,14 +303,16 @@ public class Order {
 
         if (!storeHashMap.containsKey(storeName)) {
             System.out.println("ERROR:store_identifier_does_not_exist");
-        } else if (!storeOrderIdentifier || mainItemOrder == null) {
+        } else if (!storeOrderIdentifier) {
             System.out.println("ERROR:order_identifier_does_not_exist");
-        } else if (!oldDroneExists || newDrone == null) {
+        } else if (!oldDroneExists) {
             System.out.println("ERROR:drone_identifier_does_not_exist");
         } else if (newDrone.getCurrentCapacity() < orderWeight) {
             System.out.println("ERROR:new_drone_does_not_have_enough_capacity");
         } else if (!newDrone.getHasPilot()) {
             System.out.println("ERROR:new_drone_needs_pilot");
+        } else if (oldDrone.getDroneID().equals(newDrone.getDroneID())) {
+            System.out.println("ERROR:new_drone_is_current_drone_no_change");
         } else {
             oldDrone.returnCapacitySpace(orderWeight);
             newDrone.lowerCurrentCapacity(orderWeight);

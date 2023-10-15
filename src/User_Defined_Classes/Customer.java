@@ -1,8 +1,6 @@
 package User_Defined_Classes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static User_Defined_Classes.Drone.storeDroneCatalog;
 import static User_Defined_Classes.Order.storeNametoOrderIDList;
@@ -67,8 +65,12 @@ public class Customer {
     }
 
     public void displayCustomers() {
-        for (Map.Entry<String, Customer> entry : customerHashMap.entrySet()) {
-            Customer customer = entry.getValue();
+        ArrayList<Customer> customers = new ArrayList<>(customerHashMap.values());
+
+        // Sort customers based on customer identifier
+        Collections.sort(customers, Comparator.comparing(Customer::getCustomerAccount));
+
+        for (Customer customer : customers) {
             System.out.println("name:" + customer.getFirstName() + "_" + customer.getLastName() + ",phone:" + customer.getPhoneNumber() + ",rating:" + customer.getCustomerRating() + ",credit:" + customer.getCurrentCredit());
         }
         System.out.println("OK:display_completed");
@@ -126,10 +128,26 @@ public class Customer {
         if (storeOrderList.containsKey(storeName)) {
             ArrayList<String> ordersForStore = storeOrderList.get(storeName);
             ArrayList<Order.ItemOrder> storeOrderList = storeNametoOrderIDList.get(storeName);
+
+            // Sort orders in ascending alphabetical order
+            Collections.sort(ordersForStore, new Comparator<String>() {
+                @Override
+                public int compare(String order1, String order2) {
+                    return order1.compareTo(order2);
+                }
+            });
+
             for (String order : ordersForStore) {
-                for (Order.ItemOrder itemOrder : storeOrderList) {
+                if (storeOrderList != null) {
+                    for (Order.ItemOrder itemOrder : storeOrderList) {
+                        if (itemOrder.getItemID().equals(order)) {
+                            System.out.println("orderID:" + order);
+                            System.out.println("item_name:" + itemOrder.getItemName() + ", total_quantity:" + itemOrder.getItemQuantity() + ",total_cost:" + itemOrder.getItemPrice() * itemOrder.getItemQuantity() + ",total_weight:" + itemOrder.getItemWeight());
+                        }
+                    }
+                }
+                else {
                     System.out.println("orderID:" + order);
-                    System.out.println("item_name: " + itemOrder.getItemName() + ", total_quantity: " + itemOrder.getItemQuantity() + ",total_cost: " + itemOrder.getItemPrice() + ",total_weight: " + itemOrder.getItemWeight());
                 }
             }
             System.out.println("OK:display_completed");

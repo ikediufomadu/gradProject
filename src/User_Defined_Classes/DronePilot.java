@@ -1,8 +1,6 @@
 package User_Defined_Classes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DronePilot {
     private String pilotAccount;
@@ -62,10 +60,14 @@ public class DronePilot {
     }
 
     public void displayPilots() {
-        for (Map.Entry<String, DronePilot> pilotEntry: dronePilotHashMap.entrySet()) {
-            DronePilot dronePilot = pilotEntry.getValue();
-            System.out.println("name:" + dronePilot.getFirstName() + "_" + dronePilot.getLastName() + ",phone:" + dronePilot.getPhoneNumber() + ",taxID:" + dronePilot.getTaxID() + ",licenseID:" + dronePilot.getLicenseID() + ", experience:" + dronePilot.getNumberOfDeliveries());
+        List<DronePilot> pilots = new ArrayList<>(dronePilotHashMap.values());
+
+        pilots.sort(Comparator.comparing(DronePilot::getPilotAccount));
+
+        for (DronePilot dronePilot : pilots) {
+            System.out.println("name:" + dronePilot.getFirstName() + "_" + dronePilot.getLastName() + ",phone:" + dronePilot.getPhoneNumber() + ",taxID:" + dronePilot.getTaxID() + ",licenseID:" + dronePilot.getLicenseID() + ",experience:" + dronePilot.getNumberOfDeliveries());
         }
+
         System.out.println("OK:display_completed");
     }
 }

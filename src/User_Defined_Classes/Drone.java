@@ -1,8 +1,6 @@
 package User_Defined_Classes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static User_Defined_Classes.Store.storeHashMap;
 import static User_Defined_Classes.DronePilot.dronePilotHashMap;
@@ -106,6 +104,10 @@ public class Drone {
     public void displayDrones(String storeNameToSearch) {
         if (storeDroneCatalog.containsKey(storeNameToSearch)) {
             ArrayList<Drone> storeDrones = storeDroneCatalog.get(storeNameToSearch);
+
+            // Sort drones based on droneID
+            Collections.sort(storeDrones, Comparator.comparing(Drone::getDroneID));
+
             for (Drone drone : storeDrones) {
                 if (dronePilotToDroneMap.containsValue(drone)) {
                     System.out.println("droneID:" + drone.getDroneID() + ",total_cap:" + drone.getMaxCarryWeight() + ",num_orders:" + drone.getNumOfOrdersDone() + ",remaining_cap:" + drone.getCurrentCapacity() + ",trips_left:" + drone.getTripsBeforeService() + ",flown_by:" + getDronePilot(drone));
